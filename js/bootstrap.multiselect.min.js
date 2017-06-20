@@ -2,7 +2,7 @@
 /*!
  * Bootstrap-multiselect v1.1.0
  * Author: Henry Dai
- * Website: 
+ * Website: http://bootstrapmultiselect.blogspot.ca/2017/06/bootstrap-multi-select-plugin-purpose.html
  * Contact: daihong391@gmail.com
  *
  * Copyright 2017-2019 bootstrap-multiselect
