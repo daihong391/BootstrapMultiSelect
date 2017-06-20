@@ -1,0 +1,23 @@
+﻿/*!
+ * Bootstrap-multiselect v1.1.0
+ * Author: Henry Dai
+ * Website: 
+ * Contact: daihong391@gmail.com
+ *
+ * Copyright 2017-2019 bootstrap-multiselect
+ * Licensed under MIT
+ */
+
+.caret {
+    margin-top: 10px;
+}
+
+.multiSelect-control.selected{
+    background: green;
+    color: white !important;
+}
+
+.multiSelect-control{
+    text-decoration: none !important;
+}
+
