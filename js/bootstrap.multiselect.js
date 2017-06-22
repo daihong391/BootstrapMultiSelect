@@ -195,7 +195,7 @@ if (!String.prototype.supplant) {
                 width = this.width;
             }
 
-            this.$e.before('<button style="float:none; width:' + width + ';" type="button" class="btn btn-default col-xs-7 col-md-3" data-toggle="modal" data-target="#multiSelect_' + this.$id + '"><span class="text"></span> <span class="caret pull-right"></span></button>');
+            this.$e.before('<button style="float:none; width:' + width + ';" type="button" class="btn btn-default col-xs-7 col-md-4" data-toggle="modal" data-target="#multiSelect_' + this.$id + '"><span class="text"></span> <span class="caret pull-right"></span></button>');
             this.$triggerElement = this.$e.prev();
 
             if (this.isHidden) {
