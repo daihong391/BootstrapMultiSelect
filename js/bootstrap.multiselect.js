@@ -46,6 +46,22 @@ if (!String.prototype.supplant) {
                     $.multiSelect.elements[$(a).attr('data-msid')].onClose();
                 });
             }
+
+            if (options === 'clear') {
+                $this.each(function (i, a) {
+                    $.multiSelect.elements[$(a).attr('data-msid')].clear();
+                })
+            }
+
+            if (options === 'hide') {
+                $this.each(function (i, a) {
+                    $.multiSelect.elements[$(a).attr('data-msid')].hide();
+                });
+            }
+
+            if ($.inArray(options, ['clear', 'hide']) !== -1) {
+                return;
+            }
         }
 
         // loop the page for all elements
@@ -138,7 +154,7 @@ if (!String.prototype.supplant) {
         },
         _syncR: function() {
             var that = this;
-            var selectValues = $.map(that.$selectOptions, function (val, i) { return val.value; });
+            var selectValues = that.$e.val() !== null ? that.$e.val() : [];
             this.$c.find('.multiSelect-control').each(function () {
                 if ($.inArray($(this).data('value'), selectValues) !== -1) {
                     $(this).addClass('selected');
@@ -170,16 +186,23 @@ if (!String.prototype.supplant) {
             }
         },
         _buildHtml: function () {
-            this.$e.hide();
             if (!this.isMultiple) {
                 this.$e.first()[0].insertBefore($('<option selected>None Selected</option>')[0], this.$e.first()[0][0]);
             }
-            this.$e.before('<button style="float:none;" type="button" class="btn btn-default col-xs-6 col-md-3" data-toggle="modal" data-target="#multiSelect_' + this.$id + '"><span class="text"></span> <span class="caret pull-right"></span></button>');
+
+            var width = '';
+            if (this.width !== undefined) {
+                width = this.width;
+            }
+
+            this.$e.before('<button style="float:none; width:' + width + ';" type="button" class="btn btn-default col-xs-7 col-md-3" data-toggle="modal" data-target="#multiSelect_' + this.$id + '"><span class="text"></span> <span class="caret pull-right"></span></button>');
             this.$triggerElement = this.$e.prev();
 
             if (this.isHidden) {
                 this.$triggerElement.hide();
             }
+
+            this.$e.hide();
 
             this.$selectOptions = [];
 
@@ -215,7 +238,7 @@ if (!String.prototype.supplant) {
             var that = this;
 
             $.each(this.options, function (i, e) {
-                that.$multiList.append('<a href="#" class="form-control form-group multiSelect-control" ' + e.disabled + ' data-value="' + e.value + '"><span class="glyphicon mr-2"></span>' + e.text + '</a>');
+                that.$multiList.append('<a href="#" class="form-control form-group multiSelect-control" data-value="' + e.value + '"><span class="glyphicon mr-2"></span>' + e.text + '</a>');
             });
         },
         _extractOptions: function() {
@@ -229,6 +252,16 @@ if (!String.prototype.supplant) {
             });
 
             this.options = options;
+        },
+        clear: function(){
+            this.$e.val("");
+            this.$triggerElement.find('.text').text("None Selected");
+            this.$c.find('.multiSelect-control').removeClass('selected');
+            this.$c.find('.glyphicon').removeClass('glyphicon-check');
+            this.$c.find('.glyphicon').addClass('glyphicon-unchecked');
+        },
+        hide: function(){
+            this.$triggerElement.hide();
         },
         _setTitle: function (modalTitle) {
             this.$c.find('.modal-title').text(modalTitle);
@@ -260,7 +293,7 @@ if (!String.prototype.supplant) {
     }
 
     $.fn.multiSelect.defaults = {
-        template: '<div class="modal fade" id="{id}">' +
+        template: '<div class="modal fade" id="{id}" data-backdrop="static" data-keyboard="false">' +
                     '<div class="modal-dialog" role="document">' +
                         '<div class="modal-content">' +
                             '<div class="modal-header">' +
