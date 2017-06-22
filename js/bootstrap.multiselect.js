@@ -104,6 +104,7 @@ if (!String.prototype.supplant) {
         _bindEvents: function () {
             var that = this;
             this.$c.find(".multiSelect-control").on('click', function () {
+                event.preventDefault();
                 if (that.isMultiple) {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
